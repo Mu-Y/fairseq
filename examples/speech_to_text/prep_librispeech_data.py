@@ -25,21 +25,29 @@ from tqdm import tqdm
 
 log = logging.getLogger(__name__)
 
+# SPLITS = [
+#     "train-clean-100",
+#     "train-clean-360",
+#     "train-other-500",
+#     "dev-clean",
+#     "dev-other",
+#     "test-clean",
+#     "test-other",
+# ]
+
+
 SPLITS = [
     "train-clean-100",
-    "train-clean-360",
-    "train-other-500",
     "dev-clean",
-    "dev-other",
     "test-clean",
-    "test-other",
 ]
 
 MANIFEST_COLUMNS = ["id", "audio", "n_frames", "tgt_text", "speaker"]
 
 
 def process(args):
-    out_root = Path(args.output_root).absolute()
+    out_root = Path(args.data_root).absolute()
+    # data_root = Path(args.data_root).absolute()
     out_root.mkdir(exist_ok=True)
     # Extract features
     feature_root = out_root / "fbank80"
@@ -101,7 +109,8 @@ def process(args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-root", "-o", required=True, type=str)
+    parser.add_argument("--data-root", "-o", required=True, type=str)
+    # parser.add_argument("--output-root", "-o", required=True, type=str)
     parser.add_argument(
         "--vocab-type",
         default="unigram",
